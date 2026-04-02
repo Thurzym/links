@@ -2,45 +2,38 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Meus Links</title>
+  <title>Links</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #111, #1f1f1f);
       color: white;
       text-align: center;
-      padding: 30px;
-    }
-
-    img {
-      width: 100px;
-      border-radius: 50%;
-      margin-bottom: 15px;
-      border: 3px solid white;
+      overflow: hidden;
+      background: radial-gradient(circle at bottom, #0b0f2a, #000);
     }
 
     h1 {
-      margin-bottom: 10px;
+      margin-top: 80px;
     }
 
-    p {
-      color: #ccc;
-      margin-bottom: 25px;
+    .container {
+      position: relative;
+      z-index: 2;
     }
 
     .btn {
       display: block;
-      width: 280px;
-      margin: 12px auto;
+      width: 260px;
+      margin: 15px auto;
       padding: 15px;
       border-radius: 12px;
       text-decoration: none;
       color: white;
       font-weight: bold;
       transition: 0.3s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .btn:hover {
@@ -51,29 +44,67 @@
     .shein { background: #000; }
     .mercado { background: #ffe600; color: black; }
 
-    .destaque {
-      border: 2px solid #00ffcc;
+    /* ⭐ estrelas fixas */
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
     }
+
+    /* 🌠 estrela cadente */
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 100px;
+      background: linear-gradient(white, transparent);
+      opacity: 0.8;
+      transform: rotate(45deg);
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-800px, 800px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <img src="https://via.placeholder.com/100" alt="foto">
+  <div class="stars">
+    <!-- 🌠 várias estrelas -->
+    <div class="shooting-star" style="top:10%; left:80%; animation-duration: 3s;"></div>
+    <div class="shooting-star" style="top:20%; left:60%; animation-duration: 4s;"></div>
+    <div class="shooting-star" style="top:5%; left:30%; animation-duration: 5s;"></div>
+    <div class="shooting-star" style="top:40%; left:90%; animation-duration: 3.5s;"></div>
+    <div class="shooting-star" style="top:15%; left:50%; animation-duration: 4.5s;"></div>
+    <div class="shooting-star" style="top:30%; left:70%; animation-duration: 3.2s;"></div>
+  </div>
 
-  <h1>🔥 Promoções Top</h1>
-  <p>Os melhores achados todos os dias 👇</p>
+  <div class="container">
+    <h1>🌌 
+      Links</h1>
 
-  <a class="btn shopee destaque" href="SEU_LINK_SHOPEE" target="_blank">
-    🧡 OFERTAS SHOPEE
-  </a>
+    <a class="btn shopee" href="SEU_LINK_SHOPEE" target="_blank">
+      🧡 Shopee
+    </a>
 
-  <a class="btn shein" href="SEU_LINK_SHEIN" target="_blank">
-    🖤 ROUPAS SHEIN
-  </a>
+    <a class="btn shein" href="SEU_LINK_SHEIN" target="_blank">
+      🖤 Shein
+    </a>
 
-  <a class="btn mercado" href="SEU_LINK_MERCADO" target="_blank">
-    💛 MERCADO LIVRE
-  </a>
+    <a class="btn mercado" href="SEU_LINK_MERCADO" target="_blank">
+      💛 Mercado Livre
+    </a>
+  </div>
 
 </body>
 </html>
