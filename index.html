@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Links</title>
+  <title>Achadinhos 🔥</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -10,41 +10,11 @@
       margin: 0;
       font-family: Arial, sans-serif;
       color: white;
-      text-align: center;
-      overflow: hidden;
+      overflow-x: hidden;
       background: radial-gradient(circle at bottom, #0b0f2a, #000);
     }
 
-    h1 {
-      margin-top: 80px;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-    }
-
-    .btn {
-      display: block;
-      width: 260px;
-      margin: 15px auto;
-      padding: 15px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-    }
-
-    .shopee { background: #ee4d2d; }
-    .shein { background: #000; }
-    .mercado { background: #ffe600; color: black; }
-
-    /* ⭐ estrelas fixas */
+    /* 🌌 estrelas piscando */
     .stars {
       position: fixed;
       width: 100%;
@@ -53,13 +23,25 @@
       z-index: 0;
     }
 
-    /* 🌠 estrela cadente */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: blink 2s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+
+    /* 🌠 estrelas cadentes */
     .shooting-star {
       position: absolute;
       width: 2px;
       height: 100px;
       background: linear-gradient(white, transparent);
-      opacity: 0.8;
       transform: rotate(45deg);
       animation: fall linear infinite;
     }
@@ -75,35 +57,123 @@
       }
     }
 
+    /* 📦 CONTEÚDO */
+    .container {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .topo {
+      text-align: center;
+      color: #00ffcc;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      border-left: 5px solid #00ffcc;
+      padding-left: 10px;
+    }
+
+    .produto {
+      background: rgba(26, 31, 74, 0.85);
+      backdrop-filter: blur(5px);
+      padding: 15px;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+
+    .preco {
+      color: #00ffcc;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: #00ffcc;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
   </style>
 </head>
+
 <body>
 
+  <!-- 🌌 FUNDO -->
   <div class="stars">
-    <!-- 🌠 várias estrelas -->
-    <div class="shooting-star" style="top:10%; left:80%; animation-duration: 3s;"></div>
-    <div class="shooting-star" style="top:20%; left:60%; animation-duration: 4s;"></div>
-    <div class="shooting-star" style="top:5%; left:30%; animation-duration: 5s;"></div>
-    <div class="shooting-star" style="top:40%; left:90%; animation-duration: 3.5s;"></div>
-    <div class="shooting-star" style="top:15%; left:50%; animation-duration: 4.5s;"></div>
-    <div class="shooting-star" style="top:30%; left:70%; animation-duration: 3.2s;"></div>
+    <!-- estrelas pequenas -->
+    <div class="star" style="top:10%; left:20%"></div>
+    <div class="star" style="top:30%; left:70%"></div>
+    <div class="star" style="top:50%; left:40%"></div>
+    <div class="star" style="top:80%; left:60%"></div>
+    <div class="star" style="top:20%; left:90%"></div>
+
+    <!-- 🌠 estrelas cadentes -->
+    <div class="shooting-star" style="top:10%; left:80%; animation-duration: 4s;"></div>
+    <div class="shooting-star" style="top:30%; left:60%; animation-duration: 5s;"></div>
+    <div class="shooting-star" style="top:5%; left:40%; animation-duration: 6s;"></div>
   </div>
 
+  <!-- 🛍️ LOJA -->
   <div class="container">
-    <h1>🌌 
-      Links</h1>
+    <h1>🔥 Achadinhos do Dia</h1>
+    <p class="topo">⚡ Atualizado hoje — só ofertas boas</p>
 
-    <a class="btn shopee" href="SEU_LINK_SHOPEE" target="_blank">
-      🧡 Shopee
-    </a>
+    <h2>📱 Tecnologia</h2>
 
-    <a class="btn shein" href="SEU_LINK_SHEIN" target="_blank">
-      🖤 Shein
-    </a>
+    <div class="produto">
+      <h3>🔥 Fone Bluetooth</h3>
+      <p class="preco">R$39</p>
+      <a class="btn" href="LINK_PRODUTO_1" target="_blank">Ver oferta</a>
+    </div>
 
-    <a class="btn mercado" href="https://meli.la/14aVNCS" target="_blank">
-      💛 Mercado Livre
-    </a>
+    <div class="produto">
+      <h3>🔥 Smartwatch</h3>
+      <p class="preco">R$79</p>
+      <a class="btn" href="LINK_PRODUTO_2" target="_blank">Ver oferta</a>
+    </div>
+
+    <h2>👕 Roupas</h2>
+
+    <div class="produto">
+      <h3>🔥 Camiseta Oversized</h3>
+      <p class="preco">R$49</p>
+      <a class="btn" href="LINK_PRODUTO_3" target="_blank">Ver oferta</a>
+    </div>
+
+    <div class="produto">
+      <h3>🔥 Conjunto Estiloso</h3>
+      <p class="preco">R$89</p>
+      <a class="btn" href="LINK_PRODUTO_4" target="_blank">Ver oferta</a>
+    </div>
+
+    <h2>🛍️ Achadinhos</h2>
+
+    <div class="produto">
+      <h3>🔥 Luminária LED</h3>
+      <p class="preco">R$29</p>
+      <a class="btn" href="LINK_PRODUTO_5" target="_blank">Ver oferta</a>
+    </div>
+
+    <div class="produto">
+      <h3>🔥 Suporte de Celular</h3>
+      <p class="preco">R$15</p>
+      <a class="btn" href="LINK_PRODUTO_6" target="_blank">Ver oferta</a>
+    </div>
+
   </div>
 
 </body>
