@@ -144,13 +144,13 @@ canvas.height = window.innerHeight;
 
 // ⭐ ESTRELAS (mais brilhantes + brilho suave)
 let stars = [];
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 300; i++) {
   stars.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     size: Math.random() * 2.2,
-    baseOpacity: Math.random(),
-    twinkleSpeed: Math.random() * 0.02 + 0.005
+    baseOpacity: Math.random()* 0.8 + 0.25,
+    twinkleSpeed: Math.random() * 0.03 + 0.005
   });
 }
 
@@ -162,8 +162,8 @@ function createShootingStar() {
     x: Math.random() * canvas.width,
     y: -50,
     length: Math.random() * 120 + 80,
-    speedX: Math.random() * -3 - 2, // vai pra esquerda
-    speedY: Math.random() * 5 + 6,  // descendo forte
+    speedX: Math.random() * -2 - 1, // vai pra esquerda
+    speedY: Math.random() * 8 + 12,  // descendo forte
     opacity: 1
   });
 }
