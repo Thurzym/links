@@ -129,8 +129,8 @@ h2 {
     <a class="btn" href="#">Ver oferta</a>
   </div>
   
-<div class="produto">
   <h4>Descontos na Amazon</h4>
+  <div class="produto">
   <a class="btn" href="https://amzn.to/4bPcXId" target="_blank">Ver ofertas</a>
 </div>
 
@@ -152,15 +152,16 @@ for (let i = 0; i < 120; i++) {
   });
 }
 
-// 🌠 estrelas cadentes
+// 🌠 estrelas cadentes (AGORA DESCENDO)
 let shootingStars = [];
 
 function createShootingStar() {
   shootingStars.push({
     x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height / 2,
+    y: -50, // começa fora da tela (topo)
     length: Math.random() * 80 + 50,
-    speed: Math.random() * 6 + 4,
+    speedX: Math.random() * 2 + 1, // leve diagonal
+    speedY: Math.random() * 4 + 4, // descendo
     opacity: 1
   });
 }
@@ -203,7 +204,7 @@ function animate() {
   });
 
   // 🌠 estrelas cadentes
-  if (Math.random() < 0.02) createShootingStar();
+  if (Math.random() < 0.03) createShootingStar();
 
   shootingStars.forEach((star, i) => {
     ctx.strokeStyle = "rgba(255,255,255," + star.opacity + ")";
@@ -211,36 +212,29 @@ function animate() {
 
     ctx.beginPath();
     ctx.moveTo(star.x, star.y);
-    ctx.lineTo(star.x - star.length, star.y + star.length / 2);
+    ctx.lineTo(star.x - star.length, star.y - star.length / 2);
     ctx.stroke();
 
-    star.x += star.speed;
-    star.y += star.speed * 0.5;
+    // movimento DESCENDO
+    star.x += star.speedX;
+    star.y += star.speedY;
     star.opacity -= 0.01;
 
-    if (star.opacity <= 0) shootingStars.splice(i, 1);
+    if (star.y > canvas.height || star.opacity <= 0) {
+      shootingStars.splice(i, 1);
+    }
   });
 
-  // 🏙️ prédios
+  // 🏙️ prédios (SEM JANELA)
   ctx.fillStyle = "#111";
 
   buildings.forEach(b => {
     ctx.fillRect(b.x, canvas.height - b.height, b.width, b.height);
 
-    // janelas
-    ctx.fillStyle = "#ffd";
-    for (let i = 10; i < b.width - 10; i += 15) {
-      for (let j = 10; j < b.height - 10; j += 20) {
-        if (Math.random() > 0.7) {
-          ctx.fillRect(b.x + i, canvas.height - b.height + j, 5, 5);
-        }
-      }
-    }
-
-    ctx.fillStyle = "#111";
-
+    // movimento lateral
     b.x -= 1;
 
+    // loop infinito
     if (b.x + b.width < 0) {
       b.x = canvas.width + Math.random() * 200;
       b.height = Math.random() * 200 + 100;
