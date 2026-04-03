@@ -47,6 +47,7 @@ h2 {
   padding-left: 10px;
   text-align: left;
 }
+  
 
 /* 🛍️ PRODUTOS */
 .produto {
@@ -129,7 +130,7 @@ h2 {
     <a class="btn" href="#">Ver oferta</a>
   </div>
   
-  <h4>Descontos na Amazon</h4>
+  <h2>Descontos na Amazon</h2>
   <div class="produto">
   <a class="btn" href="https://amzn.to/4bPcXId" target="_blank">Ver ofertas</a>
 </div>
@@ -141,32 +142,33 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// ⭐ estrelas
+// ⭐ ESTRELAS (mais brilhantes + brilho suave)
 let stars = [];
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 200; i++) {
   stars.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    size: Math.random() * 2,
-    opacity: Math.random()
+    size: Math.random() * 2.2,
+    baseOpacity: Math.random(),
+    twinkleSpeed: Math.random() * 0.02 + 0.005
   });
 }
 
-// 🌠 estrelas cadentes (AGORA DESCENDO)
+// 🌠 METEOROS REALISTAS (descendo diagonal)
 let shootingStars = [];
 
 function createShootingStar() {
   shootingStars.push({
     x: Math.random() * canvas.width,
-    y: -50, // começa fora da tela (topo)
-    length: Math.random() * 80 + 50,
-    speedX: Math.random() * 2 + 1, // leve diagonal
-    speedY: Math.random() * 4 + 4, // descendo
+    y: -50,
+    length: Math.random() * 120 + 80,
+    speedX: Math.random() * -3 - 2, // vai pra esquerda
+    speedY: Math.random() * 5 + 6,  // descendo forte
     opacity: 1
   });
 }
 
-// 🏙️ prédios
+// 🏙️ PRÉDIOS
 let buildings = [];
 
 function generateBuildings() {
@@ -177,7 +179,17 @@ function generateBuildings() {
     let width = Math.random() * 80 + 40;
     let height = Math.random() * 200 + 100;
 
-    buildings.push({ x, width, height });
+    // gera janelas FIXAS
+    let windows = [];
+    for (let i = 10; i < width - 10; i += 15) {
+      for (let j = 10; j < height - 10; j += 20) {
+        if (Math.random() > 0.5) {
+          windows.push({ x: i, y: j });
+        }
+      }
+    }
+
+    buildings.push({ x, width, height, windows });
     x += width + 20;
   }
 }
@@ -189,52 +201,77 @@ function animate() {
 
   // 🌌 céu
   let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, "#001");
+  gradient.addColorStop(0, "#020412");
   gradient.addColorStop(1, "#0a1a2f");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // ⭐ estrelas
+  // ⭐ estrelas com twinkle suave
   stars.forEach(star => {
-    star.opacity += (Math.random() - 0.5) * 0.05;
-    ctx.fillStyle = "rgba(255,255,255," + star.opacity + ")";
+    star.baseOpacity += (Math.random() - 0.5) * star.twinkleSpeed;
+
+    if (star.baseOpacity < 0.2) star.baseOpacity = 0.2;
+    if (star.baseOpacity > 1) star.baseOpacity = 1;
+
+    ctx.fillStyle = "rgba(255,255,255," + star.baseOpacity + ")";
     ctx.beginPath();
     ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
     ctx.fill();
   });
 
-  // 🌠 estrelas cadentes
-  if (Math.random() < 0.03) createShootingStar();
+  // 🌠 meteoros
+  if (Math.random() < 0.015) createShootingStar();
 
   shootingStars.forEach((star, i) => {
-    ctx.strokeStyle = "rgba(255,255,255," + star.opacity + ")";
+    let gradient = ctx.createLinearGradient(
+      star.x,
+      star.y,
+      star.x - star.length,
+      star.y - star.length * 0.3
+    );
+
+    gradient.addColorStop(0, "rgba(255,255,255," + star.opacity + ")");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+    ctx.strokeStyle = gradient;
     ctx.lineWidth = 2;
 
     ctx.beginPath();
     ctx.moveTo(star.x, star.y);
-    ctx.lineTo(star.x - star.length, star.y - star.length / 2);
+    ctx.lineTo(star.x - star.length, star.y - star.length * 0.3);
     ctx.stroke();
 
-    // movimento DESCENDO
+    // movimento realista (descendo diagonal)
     star.x += star.speedX;
     star.y += star.speedY;
-    star.opacity -= 0.01;
+    star.opacity -= 0.008;
 
     if (star.y > canvas.height || star.opacity <= 0) {
       shootingStars.splice(i, 1);
     }
   });
 
-  // 🏙️ prédios (SEM JANELA)
-  ctx.fillStyle = "#111";
+  // 🏙️ prédios + janelas fixas
+  ctx.fillStyle = "#0d0d0d";
 
   buildings.forEach(b => {
     ctx.fillRect(b.x, canvas.height - b.height, b.width, b.height);
 
-    // movimento lateral
+    // janelas SEM piscar
+    ctx.fillStyle = "#ffe9a3";
+    b.windows.forEach(w => {
+      ctx.fillRect(
+        b.x + w.x,
+        canvas.height - b.height + w.y,
+        5,
+        5
+      );
+    });
+
+    ctx.fillStyle = "#0d0d0d";
+
     b.x -= 1;
 
-    // loop infinito
     if (b.x + b.width < 0) {
       b.x = canvas.width + Math.random() * 200;
       b.height = Math.random() * 200 + 100;
